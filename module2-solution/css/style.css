@@ -8,3 +8,42 @@ h1
 	padding: 10px;
 	margin : 10px;
 }
+
+#chicken
+{
+	border:1px;
+	background-color:#ff8080;
+	position: absolute;
+	text-align: center;
+}
+.chicken
+{
+background-color: gray;
+border: 2px;
+padding:5px;
+}
+#beef
+{
+	border:1px;
+	background-color:ff0000;
+	position: absolute;
+	text-align: center;
+}
+.beef
+background-color: gray;
+border: 2px;
+padding:5px;
+}
+#sushi
+{
+	border:1px;
+	background-color:#ffd9b3;
+	position: absolute;
+	text-align: center;
+}
+.sushi
+{
+background-color: gray;
+border: 2px;
+padding:5px;
+}
