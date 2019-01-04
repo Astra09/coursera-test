@@ -11,6 +11,7 @@
 }
 
 h1{
+	color: black;
 	font-weight: bold;
 }
 
@@ -22,6 +23,7 @@ h1{
 	font-weight: bold;
 	margin-top: 0;
 	margin-bottom: 0;
+
 	line-height: .75;
 
 }
@@ -87,15 +89,30 @@ a.back
 
 /*END HEADER*/
 
-
-
+.section
+{
+	position: relative;
+}
 #chicken , #beef , #sushi
 {
+	color: black;
+	background-color:gray;
+	position: absolute;
+	top: -19px;
 	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
 	font-weight: bold;
+	width:100px;
 	font-size: 24px;
+	padding-top: 5px;
 
 }
+
+
+
 
 p
 {
@@ -121,3 +138,6 @@ font-size: 16px;
 		
 
 }
+
+
+
