@@ -5,7 +5,7 @@
 /**Header **/
 #header-nav
 {
-	background-color: gray;
+	background-color: #C0BFBF;
 	border-radius: 0;
 	border: 0;
 }
@@ -60,13 +60,14 @@ a.back
 	color: black;
 	text-align: center;
 	background-color: white;
+	border: 1px solid black;
 
 
 }
 
 #nav-list a:hover
 {
-	background: gray;
+	background: #C0BFBF;
 	opacity: 1%;
 	
 }
@@ -96,7 +97,7 @@ a.back
 #chicken , #beef , #sushi
 {
 	color: black;
-	background-color:gray;
+	background-color:#C0BFBF;
 	position: absolute;
 	top: -19px;
 	text-align: center;
@@ -116,7 +117,7 @@ a.back
 
 p
 {
-background-color: gray;
+background-color: #C0BFBF;
 border: 1px solid black;
 padding:8px;
 margin: 10px;
