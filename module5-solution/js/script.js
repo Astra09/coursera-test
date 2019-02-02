@@ -18,7 +18,7 @@ var allCategoriesUrl =
   "https://davids-restaurant.herokuapp.com/categories.json";
 var categoriesTitleHtml = "snippets/categories-title-snippet.html";
 var categoryHtml = "snippets/category-snippet.html";
-var menuItemsUrl =
+var menuItemsUrl = 
   "https://davids-restaurant.herokuapp.com/menu_items.json?category=";
 var menuItemsTitleHtml = "snippets/menu-items-title.html";
 var menuItemHtml = "snippets/menu-item.html";
@@ -32,7 +32,8 @@ var insertHtml = function (selector, html) {
 // Show loading icon inside element identified by 'selector'.
 var showLoading = function (selector) {
   var html = "<div class='text-center'>";
-  html += "<img src='images/ajax-loader.gif'></div>";
+  html += "<img src='images/ajax-loader.gif'>Loading please wait...</div>";
+  
   insertHtml(selector, html);
 };
 
@@ -60,40 +61,16 @@ var switchMenuToActive = function () {
   }
 };
 
-// On page load (before images or CSS)
-document.addEventListener("DOMContentLoaded", function (event) {
-
-// TODO: STEP 0: Look over the code from
-// *** start ***
-// to
-// *** finish ***
-// below.
-// We changed this code to retrieve all categories from the server instead of
-// simply requesting home HTML snippet. We now also have another function
-// called buildAndShowHomeHTML that will receive all the categories from the server
-// and process them: choose random category, retrieve home HTML snippet, insert that
-// random category into the home HTML snippet, and then insert that snippet into our
-// main page (index.html).
-//
-// TODO: STEP 1: Substitute [...] below with the *value* of the function buildAndShowHomeHTML,
-// so it can be called when server responds with the categories data.
-
-// *** start ***
-// On first load, show home view
+// On page load (before images or CSS geze)
+ document.addEventListener("DOMContentLoaded", function (event) {
 showLoading("#main-content");
 $ajaxUtils.sendGetRequest(
   allCategoriesUrl,
-  [...], // ***** <---- TODO: STEP 1: Substitute [...] ******
+  buildAndShowHomeHTML,
   true); // Explicitely setting the flag to get JSON from server processed into an object literal
 });
 // *** finish **
-
-
-// Builds HTML for the home page based on categories array
-// returned from the server.
 function buildAndShowHomeHTML (categories) {
-
-  // Load home snippet page
   $ajaxUtils.sendGetRequest(
     homeHtmlUrl,
     function (homeHtml) {
@@ -102,8 +79,7 @@ function buildAndShowHomeHTML (categories) {
       // Pay attention to what type of data that function returns vs what the chosenCategoryShortName
       // variable's name implies it expects.
       // var chosenCategoryShortName = ....
-
-
+      var chosenCategoryShortName = chooseRandomCategory(categories).short_name;
       // TODO: STEP 3: Substitute {{randomCategoryShortName}} in the home html snippet with the
       // chosen category from STEP 2. Use existing insertProperty function for that purpose.
       // Look through this code for an example of how to do use the insertProperty function.
@@ -116,18 +92,15 @@ function buildAndShowHomeHTML (categories) {
       // it into the home html snippet.
       //
       // var homeHtmlToInsertIntoMainPage = ....
-
-
+      var homeHtmlToInsertIntoMainPage = insertProperty(homeHtml, "randomCategoryShortName", "'" + chosenCategoryShortName + "'");
       // TODO: STEP 4: Insert the the produced HTML in STEP 3 into the main page
       // Use the existing insertHtml function for that purpose. Look through this code for an example
       // of how to do that.
       // ....
-
+      insertHtml("#main-content", homeHtmlToInsertIntoMainPage);
     },
     false); // False here because we are getting just regular HTML from the server, so no need to process JSON.
 }
-
-
 // Given array of category objects, returns a random category object.
 function chooseRandomCategory (categories) {
   // Choose a random index into the array (from 0 inclusively until array length (exclusively))
@@ -136,8 +109,6 @@ function chooseRandomCategory (categories) {
   // return category object with that randomArrayIndex
   return categories[randomArrayIndex];
 }
-
-
 // Load the menu categories view
 dc.loadMenuCategories = function () {
   showLoading("#main-content");
@@ -145,9 +116,7 @@ dc.loadMenuCategories = function () {
     allCategoriesUrl,
     buildAndShowCategoriesHTML);
 };
-
-
-// Load the menu items view
+// Load the menu iteam
 // 'categoryShort' is a short_name for a category
 dc.loadMenuItems = function (categoryShort) {
   showLoading("#main-content");
@@ -155,8 +124,6 @@ dc.loadMenuItems = function (categoryShort) {
     menuItemsUrl + categoryShort,
     buildAndShowMenuItemsHTML);
 };
-
-
 // Builds HTML for the categories page based on the data
 // from the server
 function buildAndShowCategoriesHTML (categories) {
@@ -192,7 +159,7 @@ function buildCategoriesViewHtml(categories,
   var finalHtml = categoriesTitleHtml;
   finalHtml += "<section class='row'>";
 
-  // Loop over categories
+  // Loop over categories menu iteme
   for (var i = 0; i < categories.length; i++) {
     // Insert category values
     var html = categoryHtml;
@@ -211,20 +178,16 @@ function buildCategoriesViewHtml(categories,
   return finalHtml;
 }
 
-
-
-// Builds HTML for the single category page based on the data
-// from the server
 function buildAndShowMenuItemsHTML (categoryMenuItems) {
   // Load title snippet of menu items page
   $ajaxUtils.sendGetRequest(
     menuItemsTitleHtml,
     function (menuItemsTitleHtml) {
-      // Retrieve single menu item snippet
+    
       $ajaxUtils.sendGetRequest(
         menuItemHtml,
         function (menuItemHtml) {
-          // Switch CSS class active to menu button
+         
           switchMenuToActive();
 
           var menuItemsViewHtml =
